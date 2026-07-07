@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard | Nexa Art</title>
+  <style>
+    body {
+      font-family: Arial;
+      padding: 20px;
+    }
+    h1 {
+      color: #5c1e87;
+    }
+    input, textarea {
+      margin: 5px;
+      padding: 5px;
+    }
+    button {
+      padding: 6px 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>🛠️ Admin Dashboard - Add New Product</h1>
+
+  <label>Product Name: <input type="text" id="name"></label>
+  <label>Description: <textarea id="description"></textarea></label>
+  <label>Price (₹): <input type="number" id="price"></label>
+  <label>Image URL: <input type="text" id="imageUrl"></label>
+  <label>Category: <input type="text" id="category"></label>
+  <button onclick="addProduct()">Add Product</button>
+
+  <script>
+    async function addProduct() {
+      const name = document.getElementById('name').value;
+      const description = document.getElementById('description').value;
+      const price = document.getElementById('price').value;
+      const imageUrl = document.getElementById('imageUrl').value;
+      const category = document.getElementById('category').value;
+
+      const newProduct = { name, description, price, imageUrl, category };
+
+      try {
+        const res = await fetch('http://localhost:5000/api/products', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(newProduct)
+        });
+
+        if (res.ok) {
+          alert("✅ Product added successfully!");
+          // Optionally clear inputs
+          document.getElementById('name').value = '';
+          document.getElementById('description').value = '';
+          document.getElementById('price').value = '';
+          document.getElementById('imageUrl').value = '';
+          document.getElementById('category').value = '';
+        } else {
+          alert("❌ Failed to add product.");
+        }
+      } catch (err) {
+        console.error("Error:", err);
+        alert("⚠️ Something went wrong.");
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Checkout | Nexa Art</title>
+  <link rel="stylesheet" href="css/checkout.css">
+  <style>
+    .cart-link {
+      position: relative;
+      font-weight: bold;
+      text-decoration: none;
+      margin-left: 20px;
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -15px;
+      background: crimson;
+      color: white;
+      font-size: 12px;
+      border-radius: 50%;
+      padding: 2px 6px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Checkout 🧾 - Nexa Art</h1>
+    <nav>
+      <a href="cart.html">← Back to Cart</a>
+      <a href="cart.html" class="cart-link">
+        🛒 View Cart <span class="cart-count" id="cart-count">0</span>
+      </a>
+    </nav>
+  </header>
+
+  <main class="checkout-container">
+    <section class="summary">
+      <h2>Order Summary</h2>
+      <ul id="order-summary">
+        <!-- Items will be populated here -->
+      </ul>
+      <p><strong>Total: ₹<span id="total-amount">0</span></strong></p>
+    </section>
+
+    <section class="details">
+      <h2>Shipping Details</h2>
+      <form onsubmit="placeOrder(event)">
+        <label>Name:
+          <input type="text" id="name" required>
+        </label>
+        <label>Email:
+          <input type="email" id="email" required>
+        </label>
+        <label>Address:
+          <textarea required></textarea>
+        </label>
+        <label>Payment Method:
+          <select required>
+            <option value="select">SELECT</option>
+            <option value="upi">UPI</option>
+            <option value="cod">Cash on Delivery</option>
+            <option value="card">Credit/Debit Card</option>
+          </select>
+        </label>
+        <button type="submit">Place Order</button>
+      </form>
+    </section>
+  </main>
+
+  <!-- Razorpay UPI Script -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+  <script>
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const list = document.getElementById('order-summary');
+  let total = 0;
+
+  cart.forEach(item => {
+    const price = parseFloat(item.price);
+    const quantity = parseInt(item.quantity) || 1;
+    const itemTotal = price * quantity;
+    total += itemTotal;
+
+    const li = document.createElement('li');
+    li.textContent = `${item.name} × ${quantity} — ₹${itemTotal.toFixed(2)}`;
+    list.appendChild(li);
+  });
+
+  document.getElementById('total-amount').textContent = total.toFixed(2);
+  document.getElementById('cart-count').textContent = cart.length;
+
+  function placeOrder(e) {
+    e.preventDefault();
+
+    const totalAmount = parseFloat(document.getElementById('total-amount').textContent);
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+
+    const options = {
+      key: "rzp_test_YourKeyHere", // Replace with your Razorpay Key
+      amount: totalAmount * 100,
+      currency: "INR",
+      name: "Nexa Art",
+      description: "Jewelry Purchase",
+      image: "https://placehold.co/100x100",
+      handler: function (response) {
+        alert("✅ Payment Successful! Payment ID: " + response.razorpay_payment_id);
+        localStorage.removeItem('cart');
+        window.location.href = "thank-you.html";
+      },
+      prefill: {
+        name: name,
+        email: email
+      },
+      theme: {
+        color: "#8b5cf6"
+      },
+      method: {
+        upi: true,
+        netbanking: false,
+        card: false,
+        wallet: false
+      }
+    };
+
+    const rzp = new Razorpay(options);
+    rzp.open();
+  }
+</script>
+
+</body>
+</html>

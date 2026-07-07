@@ -1,0 +1,64 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #fff8f4;
+  color: #333;
+}
+
+header {
+  background-color: #fff;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+}
+
+header h1 {
+  font-size: 28px;
+  color: #c084fc;
+}
+
+nav a {
+  margin-left: 15px;
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  position: relative;
+}
+
+.cart-count {
+  position: absolute;
+  top: -8px;
+  right: -15px;
+  background: crimson;
+  color: white;
+  font-size: 12px;
+  border-radius: 50%;
+  padding: 2px 6px;
+}
+
+.hero {
+  text-align: center;
+  padding: 80px 20px;
+  background: url('https://placehold.co/1200x400/e9d5ff/333?text=Nexa+Art+Jewelry') no-repeat center/cover;
+  color: #fff;
+}
+
+.hero h2 {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.hero p {
+  font-size: 18px;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  background: #f4f4f4;
+  margin-top: 40px;
+  font-size: 14px;
+}

@@ -1,0 +1,116 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+  }
+  
+  header {
+    background-color: #2a4d78;
+    color: white;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  nav a {
+    color: white;
+    margin: 0 10px;
+    text-decoration: none;
+  }
+  
+  .cart-container {
+    max-width: 600px;
+    margin: 30px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  .item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .item button {
+    background-color: #ff4d4d;
+    border: none;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+  }
+  
+  .item button:hover {
+    background-color: #e60000;
+  }
+  
+  @media (max-width: 768px) {
+    header {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 10px;
+    }
+  
+    header h1 {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+  
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+  
+    main {
+      padding: 15px;
+    }
+  
+    .cart-container {
+      width: 100%;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+  
+    .cart-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 20px;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+  
+    .cart-item img {
+      width: 100%;
+      max-width: 250px;
+      height: auto;
+      margin-bottom: 10px;
+    }
+  
+    .cart-item-details {
+      width: 100%;
+      text-align: center;
+    }
+  
+    .cart-total {
+      text-align: center;
+      font-size: 18px;
+      margin-top: 20px;
+    }
+  
+    .checkout-button {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+  }
+  

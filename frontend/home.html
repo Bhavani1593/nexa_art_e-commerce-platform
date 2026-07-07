@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nexa Art</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body, html { height: 100%; }
+
+    header {
+      width: 100%;
+      background: rgba(0,0,0,0.5);
+      color: #fff;
+      padding: 0.8rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .logo img {
+      width: 40px; /* Adjust based on your logo */
+      height: 40px;
+      border-radius: 50%;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin-left: 1.5rem;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #ffd700; /* Golden color on hover */
+    }
+
+    .landing-page {
+      background: url('LPbg.png') no-repeat center center/cover;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+      padding-top: 3rem;
+    }
+
+    h1.outline-text {
+      font-size: 3.5rem;
+      font-weight: bold;
+      text-align: center;
+      -webkit-text-stroke: 2px black;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+      margin-bottom: 1.5rem;
+    }
+
+    .btn {
+      background-color: white;
+      color: black;
+      padding: 0.8rem 2rem;
+      border-radius: 30px;
+      text-decoration: none;
+      margin: 0.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      border: 2px solid transparent;
+      transition: 0.3s;
+      box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+    }
+
+    .btn:hover {
+      background-color: #8338EC;
+      border-color: white;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+      Nexa Art
+    </div>
+    <nav>
+      <a href="shop.html">Products</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="cart.html">Cart</a>
+    </nav>
+  </header>
+
+  <section class="landing-page">
+    <h1 class="outline-text">Welcome to Nexa Art</h1>
+    <a href="shop.html" class="btn">Shop</a>
+  </section>
+
+</body>
+</html>

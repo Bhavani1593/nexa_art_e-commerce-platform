@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nexa Art</title>
+  <script src="cart.js" defer></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="shop.css" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body, html { height: 100%; }
+
+    header {
+      width: 100%;
+      background: rgba(0,0,0,0.5);
+      color: #fff;
+      padding: 0.8rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .logo img {
+      width: 40px; /* Adjust based on your logo */
+      height: 40px;
+      border-radius: 50%;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin-left: 1.5rem;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #ffd700; /* Golden color on hover */
+    }
+
+    .message-box {
+      position: fixed;
+      top: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+      color: white;
+    }
+    .message-box.show { opacity: 1; }
+    .message-box.success { background-color: #10b981; }
+    .message-box.error { background-color: #ef4444; }
+    .message-box.info { background-color: #3b82f6; }
+    .product-image { height: 160px; object-fit: cover; }
+  </style>
+</head>
+<body>
+  <header>
+      Nexa Art
+    </div>
+    <nav>
+      <a href="home.html" class="active">Home</a>
+      <a href="product.html">Products</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="cart.html">Cart</a>
+    </nav>
+  </header>
+  
+  <div class="container mx-auto p-6">
+    <h1 class="text-4xl font-extrabold text-gray-900 mb-8 text-center">Our Products</h1>
+
+    <div class="flex justify-center mb-10">
+      <select id="category-filter" class="p-3 border border-gray-300 rounded-lg shadow-sm text-lg"></select>
+    </div>
+
+    <div id="products-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"></div>
+  </div>
+
+  <div id="message-box" class="message-box"></div>
+
+  <script>
+    const productsData = [
+      { id: 1, name: "Pink Bead Bracelet", description: "Korean style beads bracelets made with pink beads. Suitable to style with all casual outfits. Fits small to medium size wrist. Handle with care.", price: 49.00, imageUrl: "Pink bracelet.png", category: "Bracelets" },
+      { id: 2, name: "Blue Bead Bracelet", description: "Trendy beads bracelet made with crackle glass jelly beads. Suitable to style with all outfits. Fits small to medium size wrist. Handle with care.", price: 49.00, imageUrl: "Blue bracelet.png", category: "Bracelets" },
+      { id: 3, name: "Matching Magnetic Heart Couple / Best Friends / Siblings Bracelet", description: "Set of two matching bead bracelets with magnetic heart. Fits small to medium size wrist.", price: 99.00, imageUrl: "Magnet heart.png", category: "Magnetic Bracelets" },
+      { id: 4, name: "Trendy Magnetic Butterfly Best Friends / Siblings / Couple Bracelet", description: "Trendy beads bracelet made with glass jelly beads & magnetic butterfly charms. Suitable to style with all outfits. Fits small to medium size wrist. Handle with care.", price: 235.00, imageUrl: "Magnet butterfly .png", category: "Magnetic Bracelets" },
+      { id: 5, name: "Beaded Chain Bracelet", description: "Trendy beads bracelet made with crackle. Suitable to style with all casual outfits. Fits small to medium size wrist. Handle with care.", price: 39.00, imageUrl: "chain 1.png", category: "Chains" },
+      { id: 6, name: "Beaded Chain Bracelet", description: "Trendy beads bracelet made with crackle. Suitable to style with all casual outfits. Fits small to medium size wrist. Handle with care.", price: 39.00, imageUrl: "chain 2.png", category: "Chains" },
+      { id: 7, name: "Beaded Chain Bracelet", description: "Trendy beads bracelet made with crackle. Suitable to style with all casual outfits. Fits small to medium size wrist. Handle with care.", price: 39.00, imageUrl: "chain 3.png", category: "Chains" },
+      { id: 8, name: "Stylish Beaded Bracelet- Set of 2", description: "Stylist Beaded Breacelet as Combo", price: 129.00, imageUrl: "Combo 1.png", category: "Offers & Combos" },
+      { id: 9, name: "Stylish Beaded Bracelet- Set of 2", description: "Stylist Beaded Breacelet as Combo", price: 129.00, imageUrl: "Combo 2.png", category: "Offers & Combos" },
+      { id: 10, name: "Stylish Beaded Bracelet- Set of 7", description: "Stylist Beaded Breacelet as Combo", price: 249.00, imageUrl: "Combo 3 BTS .png", category: "Offers & Combos" },
+      { id: 11, name: "Stylish Beaded Bracelet- Set of 2", description: "Stylist Beaded Breacelet as Combo", price: 129.00, imageUrl: "Combo 4.png", category: "Offers & Combos" },
+      { id: 12, name: "Stylish Beaded Bracelet- Set of 2", description: "Stylist Beaded Breacelet as Combo", price: 129.00, imageUrl: "Combo 5.png", category: "Offers & Combos" },
+      { id: 13, name: "Stylish Beaded Bracelet- Set of 2", description: "Stylist Beaded Breacelet as Combo", price: 129.00, imageUrl: "Combo 6.png", category: "Offers & Combos" },
+      { id: 14, name: "Stylish Beaded Bracelet- Set of 2", description: "Stylist Beaded Breacelet as Combo", price: 129.00, imageUrl: "Combo 7.png", category: "Offers & Combos" },
+      { id: 15, name: "Stylish Beaded Bracelet- Set of 4", description: "Stylist Beaded Breacelet as Combo", price: 149.00, imageUrl: "Combo 8.png", category: "Offers & Combos" },
+      { id: 16, name: "Shiny Pearl Shell Bracelet",description: "Korean style beads bracelets made with crackle beads. Suitable to style with all casual outfits. Fits small to medium size wrist. Handle with care.",price: 59.00, imageUrl: "Pink shell charm bracelet.png", category: "Bracelets" }, 
+      { id: 16, name: "Chain Beaded Bracelet",description: "Chain beaded bracelets made with crackle beads. Suitable to style with all casual outfits. Fits small to medium size wrist. Handle with care.",price: 59.00, imageUrl: "Rainbow chain bracelet.png", category: "Chain Bracelets" },   
+    ];
+
+    const messageBox = document.getElementById('message-box');
+    let messageTimeout;
+
+    function displayMessage(message, type = 'info') {
+      clearTimeout(messageTimeout);
+      messageBox.textContent = message;
+      messageBox.className = 'message-box show';
+      messageBox.classList.add(type);
+      messageTimeout = setTimeout(() => {
+        messageBox.className = 'message-box';
+      }, 3000);
+    }
+
+    const productsContainer = document.getElementById('products-container');
+    const categoryFilter = document.getElementById('category-filter');
+    const uniqueCategories = ['All', ...new Set(productsData.map(p => p.category))].sort();
+
+    function populateCategoryFilter() {
+      uniqueCategories.forEach(category => {
+        const option = document.createElement('option');
+        option.value = category;
+        option.textContent = category;
+        categoryFilter.appendChild(option);
+      });
+    }
+
+    function addToCart(name, price) {
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  cart.push({ name, price });
+  localStorage.setItem('cart', JSON.stringify(cart));
+  alert(`${name} added to cart!`);
+}
+
+
+    function renderProducts(productsToRender) {
+      productsContainer.innerHTML = '';
+      if (productsToRender.length === 0) {
+        productsContainer.innerHTML = '<p class="text-center text-gray-600 text-lg col-span-full">No products found in this category.</p>';
+        return;
+      }
+
+      productsToRender.forEach(product => {
+        const productCard = `
+          <div class="product-card bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col justify-between">
+            <img src="${product.imageUrl}" alt="${product.name}" class="product-image w-full rounded-md mb-4" onerror="this.onerror=null;this.src='https://placehold.co/300x200/cccccc/333333?text=Image+Not+Found';" />
+            <h3 class="text-xl font-semibold mb-2 truncate">${product.name}</h3>
+            <p class="text-gray-600 text-sm mb-1 line-clamp-2">${product.description}</p>
+            <p class="text-gray-500 text-xs mb-3 font-medium">Category: ${product.category || 'N/A'}</p>
+            <div class="flex items-center justify-between mt-auto pt-2">
+              <span class="text-2xl font-bold text-blue-600">Rs.${product.price.toFixed(2)}</span>
+              <div class="flex space-x-2">
+                <button onclick="displayMessage('Details for ${product.name} (ID: ${product.id})', 'info')" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 text-sm font-medium">Details</button>
+                <button onclick="addToCart('${product.name}', ${product.price})" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 text-sm font-medium">Add to Cart</button>
+
+              </div>
+            </div>
+          </div>
+        `;
+        productsContainer.insertAdjacentHTML('beforeend', productCard);
+      });
+    }
+
+    categoryFilter.addEventListener('change', (event) => {
+      const selectedCategory = event.target.value;
+      const filteredProducts = selectedCategory === 'All'
+        ? productsData
+        : productsData.filter(product => product.category === selectedCategory);
+      renderProducts(filteredProducts.sort((a, b) => a.name.localeCompare(b.name)));
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      populateCategoryFilter();
+      renderProducts(productsData.sort((a, b) => a.name.localeCompare(b.name)));
+    });
+  </script>
+</body>
+</html>

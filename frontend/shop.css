@@ -1,0 +1,86 @@
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #f3f4f6;
+}
+
+header {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+ .logo {
+      display: flex;  
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .logo img {
+      width: 40px; /* Adjust based on your logo */
+      height: 40px;
+      border-radius: 50%;
+    }
+
+    .announcement-bar {
+  background-color: #fff;   /* Background color */
+  color: #000;              /* Text color */
+  padding: 8px 0;
+  text-align: center;
+  font-size: 14px;
+  position: relative;
+  overflow: hidden;
+}
+
+.offer-text {
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.product-card {
+  min-height: 380px;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-image {
+  height: 160px;
+  object-fit: cover;
+}
+
+.message-box {
+  position: fixed;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  color: white;
+}
+
+.message-box.show {
+  opacity: 1;
+}
+
+.message-box.success {
+  background-color: #10b981;
+}
+
+.message-box.error {
+  background-color: #ef4444;
+}
+
+.message-box.info {
+  background-color: #3b82f6;
+}
